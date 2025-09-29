@@ -1,0 +1,7 @@
+1- Use Case 1: 
+-Register user 
+The user need userName + password 
+
+-Login user
+if userName + password match then login :
+    get the list in the db and check for user_id then name and password 
