@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Npgsql.Replication;
-using Pharmacie_management.Dtos;
+using Pharmacie_management.Dtos.UserAuthDto;
 using Pharmacie_management.Models;
 using Pharmacie_management.Repositories;
 

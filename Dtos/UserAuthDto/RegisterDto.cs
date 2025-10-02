@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pharmacie_management.Dtos
+namespace Pharmacie_management.Dtos.UserAuthDto
 {
-    public class LoginDto
+    public class RegisterDto
     {
         [Required]
         public string Name { get; set; }
