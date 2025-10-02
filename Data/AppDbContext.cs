@@ -12,6 +12,7 @@ namespace Pharmacie_management.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
