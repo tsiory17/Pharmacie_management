@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Npgsql.Replication;
 using Pharmacie_management.Dtos.UserAuthDto;
@@ -25,7 +27,15 @@ namespace Pharmacie_management.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { message = "the credentials are invalid" });
+                var errors = new List<string>();
+                foreach (var entry in ModelState.Values)
+                {
+                    foreach (var error in entry.Errors)
+                    {
+                        errors.Add(error.ErrorMessage);
+                    }
+                }
+                return BadRequest(new { message = "the credentials are invalid", errors });
             }
 
             //Add new user 

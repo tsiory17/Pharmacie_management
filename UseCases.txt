@@ -8,3 +8,8 @@ if userName + password match then login :
 
 2- Use Case 2: 
 Crud on medicine 
+
+
+Note: mila manome ny error message mifanaraka
+
+mila jerena parametre url(raha id)

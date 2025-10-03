@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pharmacie_management.Data;
 using Pharmacie_management.Dtos.UserDto;
+using Pharmacie_management.Models;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,9 +14,9 @@ public class UserController : ControllerBase
     }
 
     [HttpPatch("update-user")]
-    public async Task<IActionResult> UpdateUser(UpdateUserDto user)
+    public  IActionResult UpdateUser(UpdateUserDto user)
     {
-        var userToUpdate = await _appDbContext.Users.FindAsync(user.UserId);
+        var userToUpdate = _appDbContext.Users.Find(user.UserId);
         if (userToUpdate == null)
         {
             return BadRequest("user not found");
@@ -29,7 +30,7 @@ public class UserController : ControllerBase
             userToUpdate.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         }
 
-        await _appDbContext.SaveChangesAsync();
+         _appDbContext.SaveChangesAsync();
 
         return Ok("user has been updated");
     }
@@ -37,14 +38,18 @@ public class UserController : ControllerBase
     [HttpDelete("delete-user")]
     public async Task<IActionResult> DeleteUser(DeleteUserDto user)
     {
-        var userToDelete = await _appDbContext.Users.FindAsync(user.UserId);
+        // var userToDelete = await _appDbContext.Users.FindAsync(user.UserId);
 
-        if (userToDelete == null)
-        {
-            return BadRequest("the user you are trying to delete does not exist");
-        }
+       
 
-        _appDbContext.Users.Remove(userToDelete);
+        // if (userToDelete == null)
+        // {
+        //     return BadRequest("the user you are trying to delete does not exist");
+        // }
+        var userTest = new User(user.UserId);
+        // userTest.UserId = user.UserId;
+
+        _appDbContext.Users.Remove(userTest);
         await _appDbContext.SaveChangesAsync();
         
 
