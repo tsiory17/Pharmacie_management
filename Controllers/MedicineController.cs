@@ -15,7 +15,7 @@ namespace Pharmacie_management.Controllers
             _appDbContext = appDbContext;
         }
 
-        [HttpPost("add-medicine")]
+        [HttpPost]
         public IActionResult CreateMedicine(CreateMedicineDto medicineDto)
         {
             if (!ModelState.IsValid)
@@ -34,16 +34,20 @@ namespace Pharmacie_management.Controllers
             return Ok(new { message = "new medicine created" });
         }
 
-        [HttpPatch("update-medicine")]
-        public async Task<IActionResult> UpdateMedicineByName(UpdateMedicineDto medicine)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateMedicineByName(int id,[FromBody] UpdateMedicineDto medicine)
         {
             /*1- Find if a medicine exist 
                 2- if it exist change and update 
                 3- save changes 
             */
-            var medicineToUpdate = await _appDbContext.Medicines.FindAsync(medicine.MedicineId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var medicineToUpdate = await _appDbContext.Medicines.FindAsync(id);
 
-            if (medicineToUpdate == null)
+            if (medicineToUpdate == null )
             {
                 return BadRequest("the medicine doesn't exist");
             }
@@ -61,10 +65,10 @@ namespace Pharmacie_management.Controllers
             return Ok(new { message = "The medicine has been updated" });
         }
 
-        [HttpDelete("delete-medicine")]
-        public async Task<IActionResult> DeleteMedicine(DeleteMedicineDto medicine)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMedicine(int id)
         {
-            var medicineToDelete = await _appDbContext.Medicines.FindAsync(medicine.MedicineId);
+            var medicineToDelete = await _appDbContext.Medicines.FindAsync(id);
 
             if (medicineToDelete == null)
             {
