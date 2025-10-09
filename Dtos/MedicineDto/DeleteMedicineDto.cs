@@ -6,6 +6,6 @@ namespace Pharmacie_management.Dtos.MedicineDto
     public class DeleteMedicineDto
     {
         public int MedicineId { get; set; }
-    
+       
     }
 }

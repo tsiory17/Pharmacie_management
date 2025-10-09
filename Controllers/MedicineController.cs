@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pharmacie_management.Data;
 using Pharmacie_management.Dtos.MedicineDto;
+using Pharmacie_management.Models;
 
 namespace Pharmacie_management.Controllers
 {
@@ -23,7 +24,7 @@ namespace Pharmacie_management.Controllers
                 return BadRequest();
             }
 
-            _appDbContext.Medicines.Add(new Models.Medicine
+            _appDbContext.Medicines.Add( new Medicine
             {
                 MedName = medicineDto.MedName,
                 MedPrice = medicineDto.MedPrice
@@ -68,13 +69,13 @@ namespace Pharmacie_management.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMedicine(int id)
         {
-            var medicineToDelete = await _appDbContext.Medicines.FindAsync(id);
+            // var medicineToDelete = await _appDbContext.Medicines.FindAsync(id);
 
-            if (medicineToDelete == null)
-            {
-                return BadRequest("the medicine you are trying to delete does not exist");
-            }
-
+            // if (medicineToDelete == null)
+            // {
+            //     return BadRequest("the medicine you are trying to delete does not exist");
+            // }
+            var medicineToDelete = new Medicine(id);
             _appDbContext.Medicines.Remove(medicineToDelete);
             await _appDbContext.SaveChangesAsync();
 
